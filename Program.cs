@@ -1,5 +1,5 @@
+using Scalar.AspNetCore;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,48 +8,35 @@ var builder = WebApplication.CreateBuilder(args);
 // ==========================
 builder.Services.AddControllers();
 
-// THIS enables proper RFC 9457 ProblemDetails mapping
+// FIX: correct OpenAPI registration
+builder.Services.AddOpenApi();
+
+// ProblemDetails (Exercise 6)
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
 
 // ==========================
-// EXCEPTION HANDLING (IMPORTANT FIX)
+// ENVIRONMENT TOGGLE
 // ==========================
-app.UseExceptionHandler(errorApp =>
+if (app.Environment.IsDevelopment())
 {
-    errorApp.Run(async context =>
-    {
-        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-
-        var problem = new ProblemDetails
-        {
-            Title = "A server error occurred",
-            Status = StatusCodes.Status500InternalServerError,
-            Detail = exception?.Message,
-            Type = "https://tools.ietf.org/html/rfc9110#section-15.6.1"
-        };
-
-        context.Response.StatusCode = 500;
-        context.Response.ContentType = "application/json";
-
-        await context.Response.WriteAsJsonAsync(problem);
-    });
-});
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+else
+{
+    app.UseExceptionHandler();
+    app.UseStatusCodePages();
+}
 
 
 // ==========================
-// OPTIONAL (safe)
+// PIPELINE
 // ==========================
-app.UseStatusCodePages();
-
 app.UseHttpsRedirection();
 
-
-// ==========================
-// ROUTES
-// ==========================
 app.MapControllers();
 
 app.MapGet("/api/error", () =>
