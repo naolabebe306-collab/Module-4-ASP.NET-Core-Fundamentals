@@ -1,17 +1,27 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// ==========================
+// CONTROLLERS
+// ==========================
 builder.Services.AddControllers();
+
+
+// ==========================
+// EXERCISE 3 — OPTIONS PATTERN (PaymentOptions)
+// ==========================
+builder.Services
+    .AddOptions<PaymentOptions>()
+    .BindConfiguration("Payments")
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
+// ==========================
+// PIPELINE
+// ==========================
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Run(); 

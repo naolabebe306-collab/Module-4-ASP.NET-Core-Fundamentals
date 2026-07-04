@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\naol\\Desktop\\c#\\TmsApi\\TmsApi.csproj": {}
+    "C:\\Users\\naol\\Desktop\\c#\\TmsApi\\TmsApi.csproj": {}
   },
   "projects": {
-    "c:\\Users\\naol\\Desktop\\c#\\TmsApi\\TmsApi.csproj": {
+    "C:\\Users\\naol\\Desktop\\c#\\TmsApi\\TmsApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\naol\\Desktop\\c#\\TmsApi\\TmsApi.csproj",
+        "projectUniqueName": "C:\\Users\\naol\\Desktop\\c#\\TmsApi\\TmsApi.csproj",
         "projectName": "TmsApi",
-        "projectPath": "c:\\Users\\naol\\Desktop\\c#\\TmsApi\\TmsApi.csproj",
+        "projectPath": "C:\\Users\\naol\\Desktop\\c#\\TmsApi\\TmsApi.csproj",
         "packagesPath": "C:\\Users\\naol\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\naol\\Desktop\\c#\\TmsApi\\obj\\",
+        "outputPath": "C:\\Users\\naol\\Desktop\\c#\\TmsApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\naol\\AppData\\Roaming\\NuGet\\NuGet.Config"
