@@ -1,14 +1,19 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// ==========================
-// CONTROLLERS
-// ==========================
 builder.Services.AddControllers();
 
+builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+builder.Services.AddSingleton<EnrollmentWorker>();
 
-// ==========================
-// EXERCISE 3 — OPTIONS PATTERN (PaymentOptions)
-// ==========================
+builder.Host.UseDefaultServiceProvider(options =>
+{
+    options.ValidateScopes = true;
+    options.ValidateOnBuild = true;
+});
+
 builder.Services
     .AddOptions<PaymentOptions>()
     .BindConfiguration("Payments")
@@ -17,10 +22,8 @@ builder.Services
 
 var app = builder.Build();
 
-// ==========================
-// PIPELINE
-// ==========================
 app.UseHttpsRedirection();
 
 app.MapControllers();
-app.Run(); 
+
+app.Run();
